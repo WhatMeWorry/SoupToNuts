@@ -1,10 +1,8 @@
 
 
-## From Soup to Nuts ...
+## GitHub and Git Walk-Thru, from Soup to Nuts ...
 
-This is my first **markup** document. I am very _excited_ about this.
-
-And I mean **_Really Excited!_**
+This is my first **markup** document. I am very _excited_. I mean **_Really Excited!_**
 
 I just created a new text file named firstMarkdown.md on my desktop. Then  
  
@@ -14,26 +12,33 @@ Also had to add a google extension called **Markdown Preview Plus** in order for
 
 
 ## GitHub setup
-___
+
 
 First create an user account on GitHub. My account's user is called *WhatMeWorry*
 
 1. Create a new repository on GitHub. ...
 
-(The following replaces a git init 
-[gituser@CentOS project.git]$ git --bare init
-Initialized empty Git repository in /home/gituser-m/project.git/)
+    ```
+    (The following replaces a git init 
+    [gituser@CentOS project.git]$ git --bare init
+    Initialized empty Git repository in /home/gituser-m/project.git/)
+    ```
 
-    - In the upper-right corner of any page, click , and then click New repository.
+    - In the upper-right corner of any page, click + icon, and then click New repository.
     - Type a short, memorable name for your repository. ...
-        ```SoupToNuts```
+        ```
+        SoupToNuts
+        ```
     - Optionally, add a description of your repository. ...
 	    ```D 
 		This repo documents the complete life cycle of a git/GitHub repository. 
-	    Basically, a very detailed walk through.```
+	    Basically, a very detailed walk through.
+        ```
     - Choose between creating a public or private repository. ...
     - Select  [x] Initialize this repository with a README.
-        ```This very text file firstMarkDown.md will become the README file.```
+        ```
+        This very text file firstMarkDown.md will become the README file.
+        ```
     - Click Create repository.
         ```D
         All repositories created on GitHub are considered *remote*.
@@ -59,7 +64,7 @@ ___
 
     Type git clone, and then paste the URL you copied in Step 2.
 	
-	    ```D		
+	    ```		
         $ git clone https://github.com/WhatMeWorry/SoupToNuts.git
         Cloning into 'SoupToNuts'...
         remote: Counting objects: 3, done.
@@ -80,16 +85,33 @@ ___
         ```
 ___	
 	
-		
-3. Change the current working directory to your local project.
-4. Initialize the local directory as a Git repository. ...
+	2b. At your local Windows computer, open git shell (aka git bash)
+	    ```
+        $ pwd
+        /c/Users/kheaser/OneDrive for Business/GitHub
+		$ ls
+        SoupToNuts/
+        ```
+	
+3. Change the current working directory to your local project created by previous clone command
+	    ```
+		$ cd SoupToNuts/
+        kheaser@IT-ASST-SB  ~/OneDrive for Business/GitHub/SoupToNuts (master)
+        ```
+
+4. Initialize the local directory as a Git repository. (On)
+```
+https://help.github.com/articles/adding-an-existing-project-to-github-using-the-command-line/#platform-linux
+```
 5. Add the files in your new local repository. ...
+
+
+
+
+
 6. Commit the files that you've staged in your local repository.
 
 
-
-
-git clone /path/to/repository    // create a working copy of a local repository by running the command
 
 git add string.c  // adds files to the staging area.
                    // You can propose changes (add it to the Index) using 

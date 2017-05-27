@@ -1,0 +1,90 @@
+
+
+ Git Three tree Architecture
+
+               ----------------
+               |  Repository  |
+               ----------------
+                     ^
+                     | git commit file.txt
+                     |       use . for all files
+               -----------------
+               | Staging Index |
+               -----------------
+                     ^
+                     | git add file.txt
+                     |
+               ----------------
+               |  Working     |
+               ----------------
+
+
+     Create a new file in you project directory
+     Will use CheatSheet.txt for example
+
+
+ $ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   README.md
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        CheatSheet.txt
+
+The new file which we just created, resides in the Working directory (because we created it
+there - or was moved there if we say created the doc on our desktop).  It is refered to as
+"Untracked" because it is still raw (never added to Staging area or repository)
+
+$ git add CheatSheet.txt
+
+
+kheaser@IT-ASST-SB MINGW64 /c/Users/kheaser/OneDrive for Business/GitHub/SoupToNuts (master)
+$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        new file:   CheatSheet.txt
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   README.md
+
+$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        new file:   CheatSheet.txt
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   README.md
+
+
+kheaser@IT-ASST-SB MINGW64 /c/Users/kheaser/OneDrive for Business/GitHub/SoupToNuts (master)
+$ git add README.md
+
+kheaser@IT-ASST-SB MINGW64 /c/Users/kheaser/OneDrive for Business/GitHub/SoupToNuts (master)
+$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        new file:   CheatSheet.txt
+        modified:   README.md
+
+

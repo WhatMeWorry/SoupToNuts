@@ -2,21 +2,21 @@
 
  Git Three tree Architecture
 
-               ----------------
-               |  Repository  |
-               ----------------
-                     ^
-                     | git commit file.txt
-                     |       use . for all files
-               -----------------
-               | Staging Index |
-               -----------------
-                     ^
-                     | git add file.txt
-                     |
-               ----------------
-               |  Working     |
-               ----------------
+                ----------------
+   -------------|  Repository  |
+   |    |       ----------------
+   |    |                   ^
+   |   git diff --staged    | git commit file.txt
+   |    |                   |       use . for all files
+   |    |       -----------------
+   |    ------o | Staging Index |
+   |            -----------------
+   |                   ^
+ git diff              | git add file.txt
+   |                   |
+   |             ----------------
+   -----------o  |  Working     |
+                 ----------------
 
 
      Create a new file in you project directory
@@ -87,4 +87,162 @@ Changes to be committed:
         new file:   CheatSheet.txt
         modified:   README.md
 
+$ git diff
+diff --git a/CheatSheet.txt b/CheatSheet.txt
+index 43aabce..14883a5 100644
+--- a/CheatSheet.txt
++++ b/CheatSheet.txt
+@@ -1,13 +1,13 @@
+
+
+-
++ Git Three tree Architecture
+
+                ----------------
+                |  Repository  |
+                ----------------
+                      ^
+-                     | git commit file.txt   use . for all files
+-                     |
++                     | git commit file.txt
++                     |       use . for all files
+
+
+$ git commit CheatSheet.txt -m "first commit for this file"
+[master 352f35d] first commit for this file
+ Committer: Kyle Heaser <kheaser@eapl.org>
+Your name and email address were configured automatically based
+on your username and hostname. Please check that they are accurate.
+You can suppress this message by setting them explicitly. Run the
+following command and follow the instructions in your editor to edit
+your configuration file:
+
+    git config --global --edit
+
+After doing this, you may fix the identity used for this commit with:
+
+    git commit --amend --reset-author
+
+ 1 file changed, 90 insertions(+)
+ create mode 100644 CheatSheet.txt
+
+=========================================================
+
+Deleting files from Repo
+
+1) git rm fileToDelete.txt
+2) git commit fileToDelete.txt "Delete the file called fileToDelete.txt"
+
+=========================================================
+
+Renaming files
+ 1) git mv oldFileName.txt newFileName.txt
+
+=========================================================
+Undoing Working directory changes
+    git checkout -- fileWithBadChanges.txt  -- means stay on the same branch
+                         checkout is also used with branches so use --
+
+=========================================================
+Undoing Staging directory changes  (Unstage them)
+    Real world usage is say you've made changes to many files and you're assembling them into a commit from the Staging area but there is an extraneous files that you accidentally added.
+    git reset HEAD fileToUnstage.txt
+
+=========================================================
+Amending (only the most recent one) Commits.
+    git add to stage with amendments
+    git commit --amend -m "Blah, blah, blah"
+
+========================================================= 
+project/.gitignore  tells git which files to ignore
+    * ? [aeiou] [0-9]
+    ignore all files in a directory with a trailing slash
+        assets/videos/
+    comment lines begin with a #          
+  
+==========================================================
+Adding a Remote Repository
+$ git remote
+origin
+
+$ git remote -v
+origin  https://github.com/WhatMeWorry/SoupToNuts.git (fetch)
+origin  https://github.com/WhatMeWorry/SoupToNuts.git (push)
+
+shows url that is going to be used for fetching and the url for pushing. Typically the same
+but you might have a read only repo used for pulling and a different (writeable one) report for pushing.
+
+
+$ git remote add SomeNameWhateverYouWant https://github.com/WhatMeWorry/Delivery.git
+
+
+$ git remote
+SomeNameWhateverYouWant
+origin
+
+$ git remote -v
+SomeNameWhateverYouWant https://github.com/WhatMeWorry/Delivery.git (fetch)
+SomeNameWhateverYouWant https://github.com/WhatMeWorry/Delivery.git (push)
+origin  https://github.com/WhatMeWorry/SoupToNuts.git (fetch)
+origin  https://github.com/WhatMeWorry/SoupToNuts.git (push)
+
+============================================================
+Removing a Remote Repository
+$ git remote rm SomeNameWhateverYouWant
+
+
+$ git remote add delivery https://github.com/WhatMeWorry/Delivery.git
+
+=============================================================
+Cloning a repository is how you work with an existing repository someone else has already created,
+"Hey, I want you to come work with me on my project soAndSo"
+
+Clone repository is nice because it is automatically tracking.
+
+
+==============================================================
+git push 
+
+
+push is a separate command is because of git's philosophy. git is a distributed versioning system, and your local working directory is your repository! All changes you commit are instantly reflected and recorded. push is only used to update the remote repo (which you might share with others) when you're done with whatever it is that you're working on. This is a neat way to work and save changes locally (without network overhead) and update it only when you want to, instead of at every commit.
+
+===============================================================
+Fetching changes from a remote repo
+git fetch origin 
+
+
+
+
+
+
+
+==============================================================
+why git pull can be bad
+
+Before I explain the advice about git pull any further it’s worth clarifying what a branch is. Branches are often described as being a “line of development”, but I think that’s an unfortunate expression since:
+
+If anything, a branch is a “directed acyclic graph of development” rather than a line.
+It suggests that branches are quite heavyweight objects.
+I would suggest that you think of branches in terms of what defines them: they’re a name for a particular commit and all the commits that are ancestors of it, so each branch is completely defined by the SHA1sum of the commit at the tip. This means that manipulating them is a very lightweight operation – you just change that value.
+
+This definition has some perhaps unexpected implications. For example, suppose you have two branches, “stable” and “new-idea”, whose tips are at revisions E and F:
+
+  A-----C----E ("stable")
+   \
+    B-----D-----F ("new-idea")
+So the commits A, C and E are on “stable” and A, B, D and F are on “new-idea”. If you then merge “new-idea” into “stable” with the following commands:
+
+    git checkout stable   # Change to work on the branch "stable"
+    git merge new-idea    # Merge in "new-idea"
+… then you have the following:
+
+  A-----C----E----G ("stable")
+   \             /
+    B-----D-----F ("new-idea")
+If you carry on committing on “new idea” and on “stable”, you get:
+
+  A-----C----E----G---H ("stable")
+   \             /
+    B-----D-----F----I ("new-idea")
+So now A, B, C, D, E, F, G and H are on “stable”, while A, B, D, F and I are on “new-idea”.
 

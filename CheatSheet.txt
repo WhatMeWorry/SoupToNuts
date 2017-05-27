@@ -246,3 +246,4 @@ If you carry on committing on “new idea” and on “stable”, you get:
     B-----D-----F----I ("new-idea")
 So now A, B, C, D, E, F, G and H are on “stable”, while A, B, D, F and I are on “new-idea”.
 
+THis

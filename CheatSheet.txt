@@ -145,7 +145,9 @@ Undoing Working directory changes
 
 =========================================================
 Undoing Staging directory changes  (Unstage them)
-    Real world usage is say you've made changes to many files and you're assembling them into a commit from the Staging area but there is an extraneous files that you accidentally added.
+    Real world usage is say you've made changes to many files and you're 
+	assembling them into a commit from the Staging area but there is an 
+	extraneous files that you accidentally added.
     git reset HEAD fileToUnstage.txt
 
 =========================================================
@@ -169,11 +171,12 @@ $ git remote -v
 origin  https://github.com/WhatMeWorry/SoupToNuts.git (fetch)
 origin  https://github.com/WhatMeWorry/SoupToNuts.git (push)
 
-shows url that is going to be used for fetching and the url for pushing. Typically the same
-but you might have a read only repo used for pulling and a different (writeable one) report for pushing.
+shows url that is going to be used for fetching and the url for pushing. 
+Typically the same but you might have a read only repo used for pulling 
+and a different (writeable one) repo for pushing.
 
 
-$ git remote add SomeNameWhateverYouWant https://github.com/WhatMeWorry/Delivery.git
+$ git remote add nameWhateverYouWant https://github.com/WhatMeWorry/Delivery.git
 
 
 $ git remote
@@ -194,17 +197,135 @@ $ git remote rm SomeNameWhateverYouWant
 $ git remote add delivery https://github.com/WhatMeWorry/Delivery.git
 
 =============================================================
-Cloning a repository is how you work with an existing repository someone else has already created,
-"Hey, I want you to come work with me on my project soAndSo"
+Cloning a repository is how you work with an existing repository someone else 
+has already created, "Hey, I want you to come work with me on my project soAndSo"
 
-Clone repository is nice because it is automatically tracking.
+Cloning a repository is nice because it becomes automatically tracking.
 
+$ git clone https://github.com/WhatMeWorry/SoupToNuts.git  myLocalSoutToNuts
+
+$ cd myLocalSoupToNuts
+
+$ git remote -value
+
+==============================================================
+Difference between git remote add and git clone
+
+git remote add just creates an entry in your git config that specifies a name for a 
+particular URL. You must have an existing git repo to use this.
+
+git clone creates a new git repository by copying an existing one located at the URI you specify.
+
+They are functionally similar (try it!):
+ # git clone REMOTE_URL foo
+and:
+ # mkdir foo
+ # cd foo
+ # git init
+ # git remote add origin REMOTE_URL
+ # git pull origin master
+
+A lot of commands, whether git commands or common programs, do things in one line you could 
+otherwise do in ten. It's always good to save work!
+
+That said, your steps are close to, but not entirely the same as, what git clone does. I can 
+think of a few differences, all to do with branches:
+
+If, for some reason, the remote's HEAD is not master, the clone will do the right thing - 
+give you a branch named the same as the remote's, instead of master. This is rare, but a good 
+detail to be aware of.
+Your git pull won't create any remote branches. If the remote has several branches, the clone 
+creates remote branches remotes/origin/foo, remotes/origin/bar, ... in your repository. A git
+ fetch origin would take care of that in your listed steps.
+You also haven't set up your master branch to track origin's, which the clone does. You could 
+add this to your listed steps as git config branch.master.remote origin; git config 
+branch.master.merge refs/heads/master. This is very significant - with your steps, if you 
+have master checked out and you type git pull, it won't know what to do.
+It's possible I've missed a thing or two. As for difficulties one way or the other, even 
+assuming you iron out all the differences between a default clone and a "manual clone", my 
+advice would be not to reinvent git clone:
+
+It's short. Why do more work?
+It's got handy options to change its behavior. Things like --shared would be really difficult 
+to add to your listed commands.
+It's guaranteed to do the right thing now and in the future. What if you missed a detail, like 
+the ones above? What if git added a global config parameter that affected clones? You'd have to 
+change your commands to take it into account, but git clone would already know.
+
+
+==============================================================
+
+How do I delete a local repository in git?
+
+Delete the .git directory in the root-directory of your repository if you only want to delete the git-related information (branches, versions).
+
+If you want to delete everything (git-data, code, etc), just delete the whole directory.
+
+Git keeps all of its files in the .git directory. Just remove that one and init again.
+
+If you can't find it, it's because it is hidden.
+
+In Windows 7, you need to go to your folder, click on Organize on the top left, then click on 
+Folder and search options, then click on the View tab and click on the Show hidden files, 
+folders and drives radio button.
+
+On a Mac OS:
+Open a Terminal (via Spotlight: press CMD + SPACE, type terminal and press Enter) and do 
+this command: defaults write com.apple.finder AppleShowAllFiles 1 && killall Finder.
+Or you could also type cd (the space is important), drag and drop your git repo folder 
+from Finder to the terminal window, press return, then type rm -fr .git, then return again.
+
+On Ubuntu, use shortcut Ctrl + H.
+
+
+$ rm -r SoupToNuts
+
+-f, --force
+    ignore nonexistent files, never prompt
+-i
+    prompt before every removal
+
+--------------------------------------------------------------
+
+If you just use rm, you will need to follow it up with git add <fileRemoved>.  git rm 
+does this in one step.
+
+You can also use git rm --cached which will remove the file from the index (staging 
+it for deletion on the next commit), but keep your copy in the local file system.
+
+If you really want to remove all of the repository, leaving only the working 
+directory then it should be as simple as this.
+
+rm -rf .git
+The usual provisos about rm -rf apply. Make sure you have an up to date backup 
+and are absolutely sure that you're in the right place before running the command
+
+If you want to delete all .git folders in a project use the following command:
+
+find . -type f | grep -i "\.git" | xargs rm
+This will also delete all the .git folders and .gitignore files from all subfolders
 
 ==============================================================
 git push 
 
+$ git push origin master   // non-tracking branch, so need the origin master
+Counting objects: 10, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (10/10), done.
+Writing objects: 100% (10/10), 4.25 KiB | 0 bytes/s, done.
+Total 10 (delta 3), reused 0 (delta 0)
+remote: Resolving deltas: 100% (3/3), completed with 1 local object.
+To https://github.com/WhatMeWorry/SoupToNuts.git
+   124da3d..8b64132  master -> master
 
-push is a separate command is because of git's philosophy. git is a distributed versioning system, and your local working directory is your repository! All changes you commit are instantly reflected and recorded. push is only used to update the remote repo (which you might share with others) when you're done with whatever it is that you're working on. This is a neat way to work and save changes locally (without network overhead) and update it only when you want to, instead of at every commit.
+
+
+push is a separate command is because of git's philosophy. git is a distributed versioning 
+system, and your local working directory is your repository! All changes you commit are 
+instantly reflected and recorded. push is only used to update the remote repo (which you 
+might share with others) when you're done with whatever it is that you're working on. This 
+is a neat way to work and save changes locally (without network overhead) and update it 
+only when you want to, instead of at every commit.
 
 ===============================================================
 Fetching changes from a remote repo
@@ -219,18 +340,25 @@ git fetch origin
 ==============================================================
 why git pull can be bad
 
-Before I explain the advice about git pull any further it’s worth clarifying what a branch is. Branches are often described as being a “line of development”, but I think that’s an unfortunate expression since:
+Before I explain the advice about git pull any further it’s worth clarifying what 
+a branch is. Branches are often described as being a “line of development”, but I 
+think that’s an unfortunate expression since:
 
 If anything, a branch is a “directed acyclic graph of development” rather than a line.
 It suggests that branches are quite heavyweight objects.
-I would suggest that you think of branches in terms of what defines them: they’re a name for a particular commit and all the commits that are ancestors of it, so each branch is completely defined by the SHA1sum of the commit at the tip. This means that manipulating them is a very lightweight operation – you just change that value.
+I would suggest that you think of branches in terms of what defines them: they’re 
+a name for a particular commit and all the commits that are ancestors of it, so 
+each branch is completely defined by the SHA1sum of the commit at the tip. This 
+means that manipulating them is a very lightweight operation – you just change that value.
 
-This definition has some perhaps unexpected implications. For example, suppose you have two branches, “stable” and “new-idea”, whose tips are at revisions E and F:
+This definition has some perhaps unexpected implications. For example, suppose 
+you have two branches, “stable” and “new-idea”, whose tips are at revisions E and F:
 
   A-----C----E ("stable")
    \
     B-----D-----F ("new-idea")
-So the commits A, C and E are on “stable” and A, B, D and F are on “new-idea”. If you then merge “new-idea” into “stable” with the following commands:
+So the commits A, C and E are on “stable” and A, B, D and F are on “new-idea”.
+ If you then merge “new-idea” into “stable” with the following commands:
 
     git checkout stable   # Change to work on the branch "stable"
     git merge new-idea    # Merge in "new-idea"

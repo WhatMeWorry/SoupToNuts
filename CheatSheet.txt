@@ -252,6 +252,9 @@ It's guaranteed to do the right thing now and in the future. What if you missed 
 the ones above? What if git added a global config parameter that affected clones? You'd have to 
 change your commands to take it into account, but git clone would already know.
 
+Remember:  git pull = git fetch + git merge.  Recommend to use git getch and git merge until you 
+have a good understanding of fetch and merger.  Then start using pull as a shortcut.
+
 
 ==============================================================
 
@@ -331,6 +334,9 @@ only when you want to, instead of at every commit.
 Fetching changes from a remote repo
 git fetch origin 
 
+git fetch before you start work.
+git fetch before you git push
+git fetch often.  Expecially like before you get on an airplane, or take a working vacation.
 
 
 

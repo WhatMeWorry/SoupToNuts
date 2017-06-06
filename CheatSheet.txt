@@ -299,8 +299,10 @@ $ curl -u 'WhatMeWorry:ebb5c066659b6b95bd03220bdc4d126f6a3f60de' https://api.git
     "gravatar_id": "",
 
 Verify your email address, if it hasn't been verified yet.
-Settings icon in the user barIn the upper-right corner of any page, click your profile photo, then click Settings.
-Personal access tokensIn the left sidebar, click Personal access tokens.
+Settings icon in the user bar
+    In the upper-right corner of any page, click your profile photo, then click Settings.
+Personal access tokens
+    In the left sidebar, click Personal access tokens.
 
 Generate new token buttonClick Generate new token.
 
@@ -438,3 +440,44 @@ If you carry on committing on “new idea” and on “stable”, you get:
 So now A, B, C, D, E, F, G and H are on “stable”, while A, B, D, F and I are on “new-idea”.
 
 THis
+
+================================================================================================git 
+
+Removing a remote
+
+Use the git remote rm command to remove a remote URL from your repository.
+
+The git remote rm command takes one argument:
+
+A remote name, for example, destination
+
+git remote -v
+# View current remotes
+origin  https://github.com/OWNER/REPOSITORY.git (fetch)
+origin  https://github.com/OWNER/REPOSITORY.git (push)
+destination  https://github.com/FORKER/REPOSITORY.git (fetch)
+destination  https://github.com/FORKER/REPOSITORY.git (push)
+
+git remote rm destination
+# Remove remote
+git remote -v
+# Verify it's gone
+origin  https://github.com/OWNER/REPOSITORY.git (fetch)
+origin  https://github.com/OWNER/REPOSITORY.git (push)
+Note: git remote rm does not delete the remote repository from the server. It simply removes the remote and its references from your local reposi
+
+
+================================== WORKED ===================================================
+$ curl -X DELETE -u 'WhatMeWorry:46030dac796835e8989587381e0d0a06a0676943'  https://api.github.com/repos/WhatMeWorry/REPO
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+================================== WORKED ===================================================
+** Worked after 
+
+
+Setting your Git username for every repository on your computer
+git config --global user.name "WhatMeWorry"
+
+
+

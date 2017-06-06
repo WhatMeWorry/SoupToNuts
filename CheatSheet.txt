@@ -473,7 +473,7 @@ $ curl -X DELETE -u 'WhatMeWorry:46030dac796835e8989587381e0d0a06a0676943'  http
                                  Dload  Upload   Total   Spent    Left  Speed
   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
 ================================== WORKED ===================================================
-** Worked after 
+** Worked after Settings > Personal acces tokens > (edit existing token or create a new one) > (select [x] delete_repo)
 
 
 Setting your Git username for every repository on your computer

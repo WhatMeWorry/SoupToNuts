@@ -255,6 +255,63 @@ change your commands to take it into account, but git clone would already know.
 Remember:  git pull = git fetch + git merge.  Recommend to use git getch and git merge until you 
 have a good understanding of fetch and merger.  Then start using pull as a shortcut.
 
+======================================================================
+
+git clone requires that you already have an existing remote repo on GitHub. git clone REMOTE_URL foo
+or git remote add origin REMOTE_URL both need a URL.
+
+git and github are separate entities and the only way to have git add a remote repo programmatically
+is with the help of curl.  
+
+Using an existing remote repo as a pattern:
+https://github.com/WhatMeWorry/SoupToNuts.git
+
+curl -u USER https://api.github.com/user/repos -d 
+
+Make sure to replace USER and REPO with your github username and the name of the repository 
+you want to create respectively
+
+$ cat ~/.gitconfig
+# This is Git's per-user configuration file.
+[user]
+# Please adapt and uncomment the following lines:
+#       name = Kyle Heaser
+#       email = kheaser@eapl.org
+
+curl -u "Kyle Heaser" https://api.github.com/user/repos -d '{ "name": myproject }'
+
+https://github.com/WhatMeWorry/myproject.git
+
+
+
+kheaser@IT-ASST-SB MINGW64 /c/Users/kheaser/OneDrive for Business/GitHub/SoupToNuts (master)
+$ curl -u 'WhatMeWorry:ebb5c066659b6b95bd03220bdc4d126f6a3f60de' https://api.github.com/user/repos -d '{ "name": "REPO" }'
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  4  5178    4   225  100    18    189     15  0:00:27  0:00:01  0:00:26   191{
+  "id": 93530644,
+  "name": "REPO",
+  "full_name": "WhatMeWorry/REPO",
+  "owner": {
+    "login": "WhatMeWorry",
+    "id": 21070121,
+    "avatar_url": "https://avatars2.githubusercontent.com/u/21070121?v=3",
+    "gravatar_id": "",
+
+Verify your email address, if it hasn't been verified yet.
+Settings icon in the user barIn the upper-right corner of any page, click your profile photo, then click Settings.
+Personal access tokensIn the left sidebar, click Personal access tokens.
+
+Generate new token buttonClick Generate new token.
+
+Token description fieldGive your token a descriptive name.
+Selecting token scopesSelect the scopes, or permissions, you'd like to grant this token. To use your token to access repositories from the command line, select repo.
+Generate token buttonClick Generate token.
+Newly created tokenClick  to copy the token to your clipboard. For security reasons, after you navigate off the page, you will not be able to see the token again.
+	
+	
+	
+	
 
 ==============================================================
 

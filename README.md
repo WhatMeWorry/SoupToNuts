@@ -126,7 +126,9 @@ git push origin master
 Git Workflow
 
 ![One can think of git/GitHub version control process as a state machine.](
-https://github.com/WhatMeWorry/SoupToNuts/images/GitStateMachine.png)
+https://github.com/WhatMeWorry/SoupToNuts/blob/master/images/GitStateMachine.png)
+
+
 
 
 

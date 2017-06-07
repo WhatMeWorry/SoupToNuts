@@ -123,8 +123,10 @@ git commit -m "Commit message"  // Now the file is committed to the HEAD, but no
 Your changes are now in the HEAD of your local working copy. To send those changes to your remote repository, execute 
 git push origin master
 
+Git Workflow
 
-
+![One can think of git/GitHub version control process as a state machine.](
+https://github.com/WhatMeWorry/SoupToNuts/images/GitStateMachine.png)
 
 
 

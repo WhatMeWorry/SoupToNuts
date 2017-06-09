@@ -27,11 +27,11 @@ Also had to add a google extension called **Markdown Preview Plus** in order for
 
 2. After logging in to GitHub account, [create a remote repository](https://github.com/new)
 
-    [detail instructions](./documentation/GitHubRepoSetup.txt)
+    [detail instructions](./documentation/GitHubRepoSetup.md)
 
 To become really useful, a local copy of the remote repository needs to be created on your computer with a *clone* command. Cloning also keeps local and remote repositories synchronized.
 
-3. After remote repo has been created, [clone](./documentation/CloningRemoteRepo.txt) it to your local machine. 
+3. After remote repo has been created, [clone](./documentation/CloningRemoteRepo.md) it to your local machine. 
 
 	
 4. Change the current working directory to your local project created by previous clone command
